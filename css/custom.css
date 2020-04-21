@@ -1,0 +1,108 @@
+.bg-azul_oscuro{
+	background: #181733;
+}
+.bg-degradado_red_blue{
+	background: -webkit-gradient(linear,left top, right top,color-stop(0, #cd122d),to(#154284));
+}
+.caja{
+	padding: 2em;
+	background-color:beige;
+	border: #BBB 1px solid; 
+	height: 100%;
+	box-shadow: 10px 10px 5px #154284;
+ 	border-radius: 10px;
+ 	background: white;
+ 	color: black;
+ 	margin: 1%;
+}
+.text-degradado_red_blue{
+	font-size: 2.4rem;
+	line-height: 2.8rem;
+	text-align: center;
+	background: linear-gradient(90deg,#cd122d,#154284);
+	-webkit-text-fill-color: transparent;
+	color: #fff;
+	-webkit-background-clip: text;
+}
+.text-posiciones{
+	color: #154284;
+}
+.text-jugadores{
+	font-size: 1.8rem;
+	line-height: 2.8rem;
+	text-align: center;
+	background: linear-gradient(90deg,#cd122d,#fdc52c, #154284);
+	-webkit-text-fill-color: transparent;
+	color: #fff;
+	-webkit-background-clip: text;
+}
+.caja2{
+	padding: 2em;
+	background: -webkit-gradient(linear,left top, right top,color-stop(0, #cd122d),to(#154284));
+	border: white 1px solid; 
+	height: 100%;
+ 	color: black;
+ 	margin: 1%;
+}
+.map-container-3{
+	overflow:hidden;
+	padding-bottom:56.25%;
+	position:relative;
+	height:0;
+}
+.map-container-3 iframe{
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	position:absolute;
+}
+.bg-color-dark {
+    background-color: #263238 !important;
+}
+.font-small {
+    font-size: .9rem;
+}
+footer.page-footer {
+    bottom: 0;
+    color: #fff;
+}
+.btn-fb {
+    color: #fff;
+    background-color: #3b5998 !important;
+}
+.btn-tw {
+    color: #fff;
+    background-color: #55acee !important;
+}
+.btn-vb{
+	background: #7360f2;
+}
+.btn-yt{
+	background: #b00;
+}
+.btn-ig{
+	background: radial-gradient(circle farthest-corner at 35% 90%,#fec564,transparent 50%),radial-gradient(circle farthest-corner at 0 140%,#fec564,transparent 50%),radial-gradient(ellipse farthest-corner at 0 -25%,#5258cf,transparent 50%),radial-gradient(ellipse farthest-corner at 20% -50%,#5258cf,transparent 50%),radial-gradient(ellipse farthest-corner at 100% 0,#893dc2,transparent 50%),radial-gradient(ellipse farthest-corner at 60% -20%,#893dc2,transparent 50%),radial-gradient(ellipse farthest-corner at 100% 100%,#d9317a,transparent),linear-gradient(#6559ca,#bc318f 30%,#e33f5f 50%,#f77638 70%,#fec66d);
+}
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 20px;
+    line-height: 1.33;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+footer.page-footer .footer-copyright {
+    overflow: hidden;
+    color: rgba(255,255,255,0.6);
+    background-color: rgba(0,0,0,0.2);
+}
