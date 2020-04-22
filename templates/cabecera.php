@@ -31,7 +31,7 @@
 						<a class="nav-link" href="index.php"><i class="fas fa-home"></i> Inicio <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="index.php" tabindex="-1" aria-disabled="true"><i class="fas fa-shopping-cart fa-lg"></i> (0)</a>
+						<a class="nav-link" href="mostrarCarrito.php" tabindex="-1" aria-disabled="true"><i class="fas fa-shopping-cart fa-lg"></i> (0)</a>
 					</li>
 				</ul>
 			</div>
