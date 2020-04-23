@@ -106,14 +106,3 @@ footer.page-footer .footer-copyright {
     color: rgba(255,255,255,0.6);
     background-color: rgba(0,0,0,0.2);
 }
-.table-striped>tbody>tr:nth-child(odd)>td, 
-      .table-striped>tbody>tr:nth-child(odd)>th {
-       background-color: #ff0;
-      }
-      .table-striped>tbody>tr:nth-child(even)>td, 
-      .table-striped>tbody>tr:nth-child(even)>th {
-       background-color: #ccc;
-      }
-      .table-striped>thead>tr>th {
-         background-color: #eee;
-      }

@@ -31,7 +31,7 @@
 						<a class="nav-link" href="index.php"><i class="fas fa-home"></i> Inicio <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="mostrarCarrito.php" tabindex="-1" aria-disabled="true"><i class="fas fa-shopping-cart fa-lg"></i> (0)</a>
+						<a class="nav-link" href="mostrarCarrito.php" tabindex="-1" aria-disabled="true"><i class="fas fa-shopping-cart fa-lg"></i> (<?php echo (empty($_SESSION['CARRITO']))?0:count($_SESSION['CARRITO']); ?>)</a>
 					</li>
 				</ul>
 			</div>
@@ -99,11 +99,31 @@
 		                  			</div>
 		                  			<div class="form-group">
 		                    			<label for="exampleInputEmail1">Email</label>
-		                    			<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introduzca tu email" name="correo" required>
+		                    			<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="example@hotmail.com" name="correo" required>
 		                  			</div>
 		                  			<div class="form-group">
 		                    			<label for="exampleInputPassword1">Contraseña</label>
 		                    			<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Introduzca tu contraseña" name="password" required>
+		                  			</div>
+		                  			<div class="form-group">
+		                    			<label for="exampleInputPassword1">Direccion</label>
+		                    			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="inventada 5" name="direccion" required>
+		                  			</div>
+		                  			<div class="form-group">
+		                    			<label for="exampleInputPassword1">Localidad</label>
+		                    			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Introduzca tu localidad" name="localidad" required>
+		                  			</div>
+		                  			<div class="form-group">
+		                    			<label for="exampleInputPassword1">Provincia</label>
+		                    			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Introduzca tu provincia" name="provincia" required>
+		                  			</div>
+		                  			<div class="form-group">
+		                    			<label for="exampleInputPassword1">Codigo Postal</label>
+		                    			<input type="number" class="form-control" id="exampleInputPassword1" placeholder="11111" name="cod_postal" maxlength="5" required>
+		                  			</div>
+		                  			<div class="form-group">
+		                    			<label for="exampleInputPassword1">Telefono</label>
+		                    			<input type="number" class="form-control" id="exampleInputPassword1" placeholder="666666666" name="telefono" maxlength="9" required>
 		                  			</div>
 		                  			<div class="form-inline">
 		                    		<label class="mr-3" for="exampleInputPassword1">Sexo</label>

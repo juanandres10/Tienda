@@ -10,11 +10,13 @@
 	</div>
 	<div class="row">
 		<?php
+		//Hacemos una consulta a la tabla productos y lo guardamos en un array.
 			$sentencia=$pdo->prepare("select * from tblproductos");
 			$sentencia->execute();
 			$listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
 		?>
-		<?php foreach($listaProductos as $producto){ ?>
+		<?php foreach($listaProductos as $producto){
+		//Aqui comenzamos un bucle foreach para recorrer el array de los productos que  usaremos para mostrar todos los productos. ?>
 				<div class="col-12 col-sm-6 col-lg-4 mb-2">
 					<div class="card">
 						<img class="card-img-top" src="<?php echo $producto['imagen'];?>" title="<?php echo $producto['nombre'];?>" alt="<?php echo $producto['nombre'];?>" data-toggle="popover" data-trigger="hover" data-content="<?php echo $producto['descripcion'];?>">

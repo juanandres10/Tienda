@@ -7,11 +7,16 @@ correo varchar(250) not null,
 contraseña varchar(100) not null,
 nombre varchar(100) not null,
 apellidos varchar(100) not null,
+direccion varchar(100) not null,
+localidad varchar(100) not null,
+provincia varchar(100) not null,
+cod_postal int(5) not null,
+telefono int(9) not null,
 sexo enum("Hombre","Mujer") not null,
 primary key (correo),
 key (id)
 );
-insert into tblUsuarios values (null, "juan1@iliberis.com", "atarfe", "juan", "ruiz campos", "Hombre");
+insert into tblUsuarios values (null, "juan1@iliberis.com", "iliberis", "juan", "ruiz campos", "santa clara 1", "pinos puente", "granada", "18230", "658123840", "Hombre");
 
 create table tblproductos(
 id int not null auto_increment,

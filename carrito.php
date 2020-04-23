@@ -1,10 +1,13 @@
 <?php
 session_start();
 $mensaje="";
-
+//Comprobamos si btnComprar esta definido y no es nulo.
 if(isset($_POST['btnComprar'])){
+    //Con switch declaramos los casos que hara el boton btnComprar dependiendo de su value.
     switch($_POST['btnComprar']){
+        //Caso-> Agregar productos de index.php a mostrarCarrito.php.
         case 'Agregar':
+            //Desencryptamos los valores que trae el producto.
             if(is_numeric(openssl_decrypt($_POST['id'],COD,KEY))){
                 $ID=openssl_decrypt($_POST['id'],COD,KEY);
                 $mensaje.="Ok ID correcto " . $ID . "</br>";
@@ -32,6 +35,7 @@ if(isset($_POST['btnComprar'])){
                     $mensaje.="Uppss.. algo paso con el precio"  . "</br>";
                     break;
                 }
+            //Creamos la Session CARRITO y le asignamos el valor 0 en el array.
             if(!isset($_SESSION['CARRITO'])){
                 $producto=array(
                     'ID'=>$ID,
@@ -42,10 +46,12 @@ if(isset($_POST['btnComprar'])){
                 $_SESSION['CARRITO'][0]=$producto;
                 $mensaje="Producto agregado al carrito";
             }else{
+                //Comprobamos que no se selecione el mismo producto dos veces comparando ID.
                 $idProductos=array_column($_SESSION['CARRITO'], "ID");
                 if(in_array($ID,$idProductos)){
                     echo "<script>alert('El producto ya ha sido seleccionado...')</script>";
                     $mensaje="";
+                //Añadimos productos a la Session CARRITO que ha sido creada anteriormente.
                 }else{
                     $NumeroProductos=count($_SESSION['CARRITO']);
                     $producto=array(
@@ -60,6 +66,7 @@ if(isset($_POST['btnComprar'])){
             }
             $mensaje=print_r($_SESSION,true);
         break;
+        //Caso-> Eliminar productos de mostrarCarrito.php.
         case "Eliminar":
             if(is_numeric(openssl_decrypt($_POST['id'],COD,KEY))){
                 $ID=openssl_decrypt($_POST['id'],COD,KEY);
