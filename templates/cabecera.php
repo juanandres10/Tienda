@@ -12,6 +12,21 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
+<?php
+	if($_POST){
+		if (isset($_POST['boton'])) {
+			if ($_POST['boton']=="Registrar") {
+				include("users/registro.php");
+			}
+			if ($_POST['boton']=="Entrar") {
+				include("users/login.php");	
+			}
+			if ($_POST['boton']=="Cerrar") {
+				include("users/cerrar.php");
+			}
+		}	
+	}
+?>
 <body>
 	<!--Cabecera-->
 	<div class="row mr-1 ml-1 mt-1 bg-azul_oscuro p-2">
@@ -36,12 +51,13 @@
 				</ul>
 			</div>
 			<div class="d-flex justify-content-end">
-		        <div class="nav-item">
-		          	<button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#myModalLogin">Login</button>
-		        </div>
-		       	<div class="nav-item ml-2 mr-2">
-		       		<button type="button" class="btn btn-primary text-white" data-toggle="modal" data-target="#myModalRegistro">Registro</button>
-	           	</div>
+		        <?php
+					if (isset($_SESSION['tipo'])) {
+						include ("templates/close_session.php");
+					}else{
+						include ("templates/open_session.php");
+					}
+				?>
 	        </div>
 			<!-- Modal Login-->
 			<div class="modal fade" id="myModalLogin" role="dialog">
@@ -56,7 +72,7 @@
 			          	</div>
 			        	<div class="modal-body">
 			            	<div class="col-12">
-			              		<form action="login.php" method="post">
+			              		<form action="#" method="post">
 			                	<div class="form-group">
 			                  		<label for="exampleInputEmail1">Email</label>
 			                  		<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introduzca tu email" name="correo" required>
@@ -88,7 +104,7 @@
 		          		<div class="modal-body">
 		            		<div class="row justify-content-center">
 		              			<div class="col-12">
-		                		<form form action="registro.php" method="post">
+		                		<form form action="#" method="post">
 		                  			<div class="form-group">
 		                    			<label for="exampleInputEmail1">Nombre</label>
 		                    			<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introduzca tu nombre" name="nombre" required>

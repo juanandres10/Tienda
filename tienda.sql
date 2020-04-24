@@ -13,10 +13,12 @@ provincia varchar(100) not null,
 cod_postal int(5) not null,
 telefono int(9) not null,
 sexo enum("Hombre","Mujer") not null,
+tipo enum("Registrado","Administrador") not null,
 primary key (correo),
 key (id)
 );
-insert into tblUsuarios values (null, "juan1@iliberis.com", "iliberis", "juan", "ruiz campos", "santa clara 1", "pinos puente", "granada", "18230", "658123840", "Hombre");
+insert into tblUsuarios values (null, "juan1@iliberis.com", "iliberis", "juan", "ruiz campos", "santa clara 1", "pinos puente", "granada", "18230", "658123840", "Hombre", "Registrado");
+insert into tblUsuarios values (null, "admin@admin.admin", "admin", "Administrador", "admin", "", "", "", "0", "0", "Hombre", "Administrador");
 
 create table tblproductos(
 id int not null auto_increment,
@@ -52,12 +54,13 @@ create table tblDetalleVenta(
 id int not null auto_increment,
 idVenta int not null,
 idProducto int not null,
+idUsuario int not null,
 precio decimal(20,2) not null,
 cantidad int not null,
-descargado int not null,
 primary key (id),
 FOREIGN KEY (idVenta) REFERENCES tblventas(id) on delete cascade on update cascade,
-FOREIGN KEY (idProducto) REFERENCES tblproductos(id) on delete cascade on update cascade
+FOREIGN KEY (idProducto) REFERENCES tblproductos(id) on delete cascade on update cascade,
+FOREIGN KEY (idUsuario) REFERENCES tblUsuarios(id) on delete cascade on update cascade
 );
 /*insert into tblventas (id, claveTransaccion, paypalDatos, fecha, correo, total, status) values (NULL, '1234567890', '', '2020-10-1 14:09:55', 'jarh@gmail.es', '700', 'pendiente');
 insert into tblDetalleVenta (id, idVenta, idProducto, precio, cantidad, descargado) values (NULL, '1', '10', '100', '1', '0');*/
