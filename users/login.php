@@ -18,7 +18,9 @@
 				$_SESSION['email']=$correo;
 				$_SESSION['contraseña']=$contraseña;
 				foreach($resultado->fetchAll() as $key => $value){
-					$_SESSION['tipo']=($value[0]);
+					$_SESSION['tipo']=($value[11]);
+					$_SESSION['id']=($value[0]);
+					$mensaje.=ucwords("Bienvenido ".($value[3])." ".($value[4]));
 				}
 			}else{
 				$mensaje.="Este usuario no se encuentra en la base de datos.</br>";

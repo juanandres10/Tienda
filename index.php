@@ -3,11 +3,14 @@
 	include 'global/conexion.php';
 	include 'carrito.php';
 	include 'templates/cabecera.php';
-?>
-	<div class="alert alert-primary mt-2">
-		<?php echo $mensaje;?>
-		<a href="#" class="badge badge-primary"> Ver carrito</a>
-	</div>
+?>	
+
+	<?php if($mensaje!=""){?>
+		<div class="alert alert-primary mt-2">
+			<?php echo $mensaje;?>
+			<a href="mostrarCarrito.php" class="badge badge-primary"> Ver carrito</a>
+		</div>
+	<?php }; ?>
 	<div class="row">
 		<?php
 		//Hacemos una consulta a la tabla productos y lo guardamos en un array.
@@ -17,7 +20,7 @@
 		?>
 		<?php foreach($listaProductos as $producto){
 		//Aqui comenzamos un bucle foreach para recorrer el array de los productos que  usaremos para mostrar todos los productos. ?>
-				<div class="col-12 col-sm-6 col-lg-4 mb-2">
+				<div class="col-12 col-sm-6 col-lg-4 mb-2 mt-2">
 					<div class="card">
 						<img class="card-img-top" src="<?php echo $producto['imagen'];?>" title="<?php echo $producto['nombre'];?>" alt="<?php echo $producto['nombre'];?>" data-toggle="popover" data-trigger="hover" data-content="<?php echo $producto['descripcion'];?>">
 						<div class="card-body">

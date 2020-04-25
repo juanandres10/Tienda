@@ -35,37 +35,75 @@ if(isset($_POST['btnComprar'])){
                     $mensaje.="Uppss.. algo paso con el precio"  . "</br>";
                     break;
                 }
-            //Creamos la Session CARRITO y le asignamos el valor 0 en el array.
-            if(!isset($_SESSION['CARRITO'])){
-                $producto=array(
-                    'ID'=>$ID,
-                    'NOMBRE'=>$NOMBRE,
-                    'CANTIDAD'=>$CANTIDAD,
-                    'PRECIO'=>$PRECIO
-                );
-                $_SESSION['CARRITO'][0]=$producto;
-                $mensaje="Producto agregado al carrito";
-            }else{
-                //Comprobamos que no se selecione el mismo producto dos veces comparando ID.
-                $idProductos=array_column($_SESSION['CARRITO'], "ID");
-                if(in_array($ID,$idProductos)){
-                    echo "<script>alert('El producto ya ha sido seleccionado...')</script>";
-                    $mensaje="";
-                //Añadimos productos a la Session CARRITO que ha sido creada anteriormente.
-                }else{
-                    $NumeroProductos=count($_SESSION['CARRITO']);
+            if (isset($_SESSION['tipo'])) {
+                echo "Este es el de sesion";
+                //Creamos la Session CARRITO y le asignamos el valor 0 en el array.
+                if(!isset($_SESSION['CARRITO'])){
                     $producto=array(
                         'ID'=>$ID,
                         'NOMBRE'=>$NOMBRE,
                         'CANTIDAD'=>$CANTIDAD,
                         'PRECIO'=>$PRECIO
                     );
-                    $_SESSION['CARRITO'][$NumeroProductos]=$producto;
+                    $_SESSION['CARRITO'][0]=$producto;
                     $mensaje="Producto agregado al carrito";
+                }else{
+                    //Comprobamos que no se selecione el mismo producto dos veces comparando ID.
+                    $idProductos=array_column($_SESSION['CARRITO'], "ID");
+                    if(in_array($ID,$idProductos)){
+                        echo "<script>alert('El producto ya ha sido seleccionado...')</script>";
+                        $mensaje="";
+                    //Añadimos productos a la Session CARRITO que ha sido creada anteriormente.
+                    }else{
+                        $NumeroProductos=count($_SESSION['CARRITO']);
+                        $producto=array(
+                            'ID'=>$ID,
+                            'NOMBRE'=>$NOMBRE,
+                            'CANTIDAD'=>$CANTIDAD,
+                            'PRECIO'=>$PRECIO
+                        );
+                        $_SESSION['CARRITO'][$NumeroProductos]=$producto;
+                        $mensaje="Producto agregado al carrito";
+                    }
                 }
-            }
-            $mensaje=print_r($_SESSION,true);
-        break;
+            }else{
+                echo "Este es el de cookies";
+                if (!isset($_COOKIE['carrito'])) {
+                    $aCarrito=array();
+                    $aCarrito[0]=array(
+                        'ID'=>$ID,
+                        'NOMBRE'=>$NOMBRE,
+                        'CANTIDAD'=>$CANTIDAD,
+                        'PRECIO'=>$PRECIO
+                    );
+                    $iTemCad = time() + (60 * 60);
+                    setcookie('carrito', serialize($aCarrito), $iTemCad, '/');
+                }else{
+                    $aCarrito=unserialize($_COOKIE['carrito'],["allowed_classes" => false]);
+                    $iTemCad = time() + (60 * 60);
+                    setcookie('carrito', serialize($aCarrito), $iTemCad, '/');
+                    var_dump($aCarrito);
+                    //Comprobamos que no se selecione el mismo producto dos veces comparando ID.
+                    $idProductos=array_column($aCarrito, "ID");
+                    if(in_array($ID,$idProductos)){
+                        echo "<script>alert('El producto ya ha sido seleccionado...')</script>";
+                        $mensaje="";
+                    //Añadimos productos a la Session CARRITO que ha sido creada anteriormente.
+                    }else{
+                        $NumeroProductos=count($aCarrito);
+                        $aCarrito[$NumeroProductos]=array(
+                            'ID'=>$ID,
+                            'NOMBRE'=>$NOMBRE,
+                            'CANTIDAD'=>$CANTIDAD,
+                            'PRECIO'=>$PRECIO
+                        );
+                        $iTemCad = time() + (60 * 60);
+                        setcookie('carrito', serialize($aCarrito), $iTemCad, '/');
+                        $mensaje="Producto agregado al carrito";
+                    }
+                }
+            }    
+            break;
         //Caso-> Eliminar productos de mostrarCarrito.php.
         case "Eliminar":
             if(is_numeric(openssl_decrypt($_POST['id'],COD,KEY))){
