@@ -32,16 +32,57 @@
         }
     }
 ?>
+
 <div class="jumbotron text-center mt-4">
     <h1 class="display-4">¡ Paso Final !</h1>
     <hr class="my-4">
     <p class="lead">Estas a punto de pagar con paypal la cantidad de: 
         <h4><?php echo number_format($total,2); ?> €</h4>
+        <div id="paypal-button"></div>
     </p>
-    <p>Los productos podran ser descargados una vez que se procese el pago<br>
+    <p>La factura sera mostrada al finalizar el pago.<br>
         <strong>(Para aclaraciones :juanandresruizhernandez10@gmail.com)</strong>
     </p>
 </div>
+
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Button.render({
+            // Configure environment
+            env: 'sandbox',
+            client: {
+              sandbox: 'AcovA4k-_hwMN7MDWggOU2lR8JwuZRyPUCV4RyoMLrVqFda9E5I7Z0ok8bByzG8aU7j5zj5URVD9vAis',
+              production: 'demo_production_client_id'
+            },
+            // Customize button (optional)
+            locale: 'es_ES',
+            style: {
+              size: 'small',
+              color: 'black',
+              shape: 'pill',
+            },
+            // Set up a payment
+            payment: function(data, actions) {
+              return actions.payment.create({
+                transactions: [{
+                  amount: {
+                    total: '<?php echo $total; ?>',
+                    currency: 'EUR'
+                  }
+                }]
+              });
+            },
+            // Execute the payment
+            onAuthorize: function(data, actions) {
+              return actions.payment.execute().then(function() {
+                // Show a confirmation message to the buyer
+                window.alert('Gracias por su comprar');
+              });
+            }
+          }, '#paypal-button');
+    </script>
+
 <!-- Script que oculta el boton de cerrar session -->
 <script>
 	$(function(){

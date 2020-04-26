@@ -15,6 +15,11 @@
 			if ($numero_registro!=0) {
 				/*session_start();
 				$_SESSION["usuario"]=$_POST["usuario"];*/
+				if (isset($_COOKIE['carrito'])) {
+					$aCarrito=unserialize($_COOKIE['carrito'],["allowed_classes" => true]);
+					$_SESSION['CARRITO']=$aCarrito;
+					setcookie('carrito',"",time()-30000,"/");
+				}
 				$_SESSION['email']=$correo;
 				$_SESSION['contraseña']=$contraseña;
 				foreach($resultado->fetchAll() as $key => $value){
