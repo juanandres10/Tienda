@@ -63,8 +63,10 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="mostrarCarrito.php" tabindex="-1" aria-disabled="true"><i class="fas fa-shopping-cart fa-lg"></i> (<?php
+						//Muestra el numero de productos en el carrito de los usuarios logeados.
 						if (isset($_SESSION['tipo'])) {
 							echo (empty($_SESSION['CARRITO']))?0:count($_SESSION['CARRITO']);
+						//Muestra el numero de productos en el carrito de los usuarios visitantes.
 						}else{
 							if (!isset($_COOKIE['carrito'])) {
 								echo "0";
@@ -78,8 +80,10 @@
 			</div>
 			<div class="d-flex justify-content-end">
 		        <?php
+		        	//Carga la cabecera de los usuarios visitantes para que se logen o registren.
 					if (isset($_SESSION['tipo'])) {
 						include ("templates/close_session.php");
+					//Carga la cabecera de los usuarios logueados para que cierren session.
 					}else{
 						include ("templates/open_session.php");
 					}

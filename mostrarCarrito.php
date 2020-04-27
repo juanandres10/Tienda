@@ -8,7 +8,9 @@
 <br>
 <h3>Lista del carrito</h3>
     <?php
+    //Creamos la session que contiene el tipo registrado de que ha iniciado session 
     if(isset($_SESSION['tipo'])) {
+        //Si la session carrito contiene algo
         if(!empty($_SESSION['CARRITO'])) { 
     ?>
             <table class="table">
@@ -65,9 +67,10 @@
 
         <?php } ?>
     <?php }else{
-
+        //Declaramos la cookie carrito si existe
         if(isset($_COOKIE['carrito'])) {
             $aCarrito=unserialize($_COOKIE['carrito'],["allowed_classes" => true]);
+            //Si la cookie carrito contiene algo lo muestra por tablas
             if(!empty($aCarrito)) { ?>
                 
                 <table class="table">

@@ -45,50 +45,54 @@
     </p>
 </div>
 
+<!-- Script que oculta el boton de cerrar session -->
+<script>
+    $(function(){
+        $("form button").eq(0).hide();
+    });
+</script>
 
     <script>
-        // Render the PayPal button into #paypal-button-container
+        // Que hace cuando pulsas el #paypal-button
         paypal.Button.render({
-            // Configure environment
+            // Configurar tipo de envio
             env: 'sandbox',
             client: {
               sandbox: 'AcovA4k-_hwMN7MDWggOU2lR8JwuZRyPUCV4RyoMLrVqFda9E5I7Z0ok8bByzG8aU7j5zj5URVD9vAis',
-              production: 'demo_production_client_id'
+              production: 'AUHLufrDljESGsxciTP43wL2XAg7T122gxXVsr_yNnZ70Ky_LYW039qaJy4DiEZdLWl3rCG8cbl6Tvpz'
             },
-            // Customize button (optional)
+            // Editamos boton (optional)
             locale: 'es_ES',
             style: {
               size: 'small',
               color: 'black',
               shape: 'pill',
             },
-            // Set up a payment
+            // Informacion que ve el comprado de total, el tipo moneda...
             payment: function(data, actions) {
               return actions.payment.create({
                 transactions: [{
                   amount: {
                     total: '<?php echo $total; ?>',
                     currency: 'EUR'
-                  }
+                  },
+                description: 'Compra de productos a Futbol Club Barcelona <?php echo number_format($total,2); ?> €.',
+                custom: '<?php echo $SID; ?>#<?php echo openssl_encrypt($idVenta, COD, KEY);?>'
                 }]
               });
             },
-            // Execute the payment
+            // Ejecucion tras pagar
             onAuthorize: function(data, actions) {
               return actions.payment.execute().then(function() {
                 // Show a confirmation message to the buyer
-                window.alert('Gracias por su comprar');
+                console.log(data);
+                window.location="verificador.php?paymentToken="+data.paymentToken+"&paymentID="+data.paymentID;
               });
             }
           }, '#paypal-button');
     </script>
 
-<!-- Script que oculta el boton de cerrar session -->
-<script>
-	$(function(){
-		$("form button").eq(0).hide();
-	});
-</script>
+
 <?php
 	include 'templates/pie.php';
 ?>

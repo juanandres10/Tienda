@@ -1,17 +1,27 @@
 	<?php
 
 	//Boton de Registrar
-		try{
+		try{//Comprueba nombre
 			if (!empty($_POST['nombre']) && preg_match_all("/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/", $_POST['nombre'])) {
+				//Comprueba apellidos
 				if (!empty($_POST['apellidos']) && preg_match_all("/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/", $_POST['apellidos'])) {
+					//Comprueba contraseña
 					if (!empty($_POST['password']) && preg_match_all("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/", $_POST['password'])) {
+						//Comprueba direccion
 						if (!empty($_POST['direccion']) && preg_match_all("/[A-Za-z\s]+[0-9]/", $_POST['direccion'])) {
+							//Comprueba telefono
 							if (is_numeric($_POST['telefono']) && preg_match_all("/(^[0-9]{9}\b)/", $_POST['telefono'])) {
+								//Comprueba provincia
 								if (!empty($_POST['provincia']) && preg_match_all("/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/", $_POST['provincia'])) {
+									//Comprueba codigo postal
 									if (is_numeric($_POST['cod_postal']) && preg_match_all("/(^[0-9]{5}\b)/", $_POST['cod_postal'])) {
+										//Comprueba email
 										if (!empty($_POST['correo']) && preg_match_all("/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/", $_POST['correo'])) {
+											//Comprueba localidad
 											if (!empty($_POST['localidad']) && preg_match_all("/^[a-zA-ZáéíóúÁÉÍÓÚäëïöüÄËÏÖÜàèìòùÀÈÌÒÙ\s]+$/", $_POST['localidad'])) {
+												//Comprueba sexo
 												if (!empty($_POST['sexo'])) {
+													//Creamos la sentencia sql que nos permitira registrar usuarios.
 
 													$sql = "INSERT INTO tblUsuarios ( correo, contraseña, nombre, apellidos, direccion, localidad, provincia, cod_postal,  telefono, sexo, tipo ) VALUES ( :correo, :password, :nombre, :apellidos, :direccion, :localidad, :provincia, :cod_postal, :telefono, :sexo, :tipo )";
 

@@ -5,7 +5,8 @@
 	include 'templates/cabecera.php';
 ?>	
 
-	<?php if($mensaje!=""){?>
+	<?php //Si no existe el mensaje lo creamos
+	if($mensaje!=""){?>
 		<div class="alert alert-primary mt-2">
 			<?php echo $mensaje;?>
 			<a href="mostrarCarrito.php" class="badge badge-primary"> Ver carrito</a>
