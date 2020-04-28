@@ -40,6 +40,9 @@
 			if ($_POST['boton']=="Cerrar") {
 				include("users/cerrar.php");
 			}
+			if ($_POST['boton']=="Administracion") {
+				header("location:administracion.php");
+			}
 		}	
 	}
 ?>
@@ -82,7 +85,11 @@
 		        <?php
 		        	//Carga la cabecera de los usuarios visitantes para que se logen o registren.
 					if (isset($_SESSION['tipo'])) {
-						include ("templates/close_session.php");
+						if ($_SESSION['tipo'] == 'Registrado') {
+							include ("templates/close_session.php");
+						}elseif ($_SESSION['tipo'] == 'Administrador'){
+							include ("templates/close_session_admin.php");
+						}
 					//Carga la cabecera de los usuarios logueados para que cierren session.
 					}else{
 						include ("templates/open_session.php");
