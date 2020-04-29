@@ -60,11 +60,43 @@ if ($state=="approved") {
 	$sentencia->bindParam(":Total", $total);
 	$sentencia->bindParam(":Id", $claveVenta);
 	$sentencia->execute();
+	//Completado guarda los cambios que ha habido
+	$completado=$sentencia->rowCount();
 }else{
 	$mensajePaypal="<h3>Hay un problema con el pago de paypal</h3>";
 }
-echo "$mensajePaypal";
 ?>
+<div class="jumbotron mt-3 text-center">
+	<h1 class="display-4">¡ Listo !</h1>
+	<hr class="my-4">
+	<p class="lead"><?php echo "$mensajePaypal";
+ ?></p>
+	<p>
+		<?php
+		//Sentencia por si se ha cambiado mas de 1 columna
+			if ($completado>=1){
+				
+				//Sentencia que nos muestra el detalle de venta filtrado por el id de la ultima venta.
+				$sentencia = $pdo->prepare("SELECT * from tbldetalleventa, tblproductos where tbldetalleventa.idProducto=tblproductos.id and tbldetalleventa.idVenta=:Id;");
+				$sentencia->bindParam(":Id", $claveVenta);
+				$sentencia->execute();
+				//Depositamos la informacion de la sentencia en listaProductos
+				$listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+				print_r($listaProductos);
+				?>
+				<div class="text-center">
+					<h4>La factura de su compra se le mostrara en una nueva pestaña desde donde podra observarla y descargarla.</h4>
+						<form action="factura.php" method="POST">
+							<input type="hidden" name="IDVENTA" id="" value="<?php echo $claveVenta; ?>">
+							<button type="submit">Factura</button>
+						</form>
+							
+				</div>
+				<?php
+			}
+		?>
+	</p>
+</div>
 <?php
 	include 'templates/pie.php';
 ?>
