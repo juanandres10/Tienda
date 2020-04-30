@@ -2,6 +2,7 @@
 include 'global/config.php';
 include 'global/conexion.php';
 require 'fpdf/fpdf.php';
+define('EURO',chr(128));
 
 if ($_POST) {
 	//sentencias
@@ -11,9 +12,6 @@ if ($_POST) {
 	$sentencia->bindParam(":Id", $IDVENTA);
 	$sentencia->execute();
 	$listaProductos=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-	
-
-
 }
 
 class PDF extends FPDF{
@@ -57,12 +55,61 @@ $pdf->SetFont('Times','',20);
 $pdf->Cell(100, 10, 'Factura de compra', 0, 'L');
 //Salto de linea
 $pdf->Ln(20);
+//Header de la tabla
 //Indicamos la fuente que queremos y tamaño
 $pdf->SetFont('Times','',12);
+//Color de relleno de la tabla
+$pdf->SetFillColor(255,255,255);
+//Color del texto
+$pdf->SetTextColor(40,40,40);
+//Color usado para oferaciones de graficaion
+$pdf->SetDrawColor(88,88,88);
+//Añadimos la cabecera de nuestra tabla
+$pdf->Cell(60, 10, "Producto", 0, 0, "L", 1);
+$pdf->Cell(15, 10, "Cantidad", 0, 0, "C", 1);
+$pdf->Cell(20, 10, "Precio", 0, 0, "R", 1);
+$pdf->Cell(40, 10, "Precio Total", 0, 0, "R", 1);
+//Color usado para oferaciones de graficaion
+$pdf->SetDrawColor(61,174,233);
+//Ancho de la linea
+$pdf->SetLineWidth(1);
+//Traza una linea entre dos puntos
+$pdf->Line(12,85,150,85);
+//Color del texto
+$pdf->SetTextColor(0,0,0);
+//Color de relleno de la tabla
+$pdf->SetFillColor(240,240,240);
+//Color del texto
+$pdf->SetTextColor(40,40,40);
+//Color usado para oferaciones de graficaion
+$pdf->SetDrawColor(255,255,255);
+//Salto de linea
+$pdf->Ln(20);
+//Creamos variable total
+$total=0;
 //Recoreemos el bucle
 foreach ($listaProductos as $lista) {
-$pdf->MultiCell(100, 20, $lista['nombre'], 1);
+//$pdf->MultiCell(100, 20, $lista['nombre'], 1);
+$pdf->Cell(60, 10, iconv('UTF-8', 'windows-1252', $lista['nombre']), 0, 0, "L", 1);
+$pdf->Cell(15, 10, $lista['cantidad'], 0, 0, "R", 1);
+$pdf->Cell(20, 10, $lista['precio'], 0, 0, "R", 1);
+$pdf->Cell(40, 10, number_format($lista['cantidad'] * $lista['precio'],2), 0, 0, "R", 1);
+//Salto de linea
+$pdf->Ln();
+//Variable total tiene ya el valor total de la compra
+$total=$total + ($lista['cantidad'] * $lista['precio']);
 }
+//Salto de linea
+$pdf->Ln(10);
+//Indicamos la fuente que queremos y tamaño
+$pdf->SetFont('Courier','B',20);
+//Color de relleno de la tabla
+$pdf->SetFillColor(242,59,23);
+//Color del texto
+$pdf->SetTextColor(59,145,244);
+//Color usado para oferaciones de graficaion
+$pdf->SetDrawColor(88,88,88);
+$pdf->Cell(135, 10, "Cantidad total a pagar ".$total." ".EURO, 0, 0, "R", 1);
 //$pdf->Cell(100, 10, $lista['nombre'], 0, 'L');
 //Se cierra el documento y se envia al navegador
 $pdf->Output();

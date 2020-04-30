@@ -97,6 +97,12 @@ if ($state=="approved") {
 		?>
 	</p>
 </div>
+<!-- Script que oculta el boton de cerrar session -->
+<script>
+    $(function(){
+        $("form button").eq(0).hide();
+    });
+</script>
 <?php
 	include 'templates/pie.php';
 ?>
